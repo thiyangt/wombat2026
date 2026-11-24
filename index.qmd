@@ -120,6 +120,40 @@ library(gganimate)
 
 ![](conflicts.png){.absolute width="100%" height="100%" style="object-fit: cover; top: 0; left: 0; z-index: -1;"}
 
+
+
+## Understanding Elephants 
+
+- Which forests, grasslands and protected areas do they inhabit?
+
+
+
+- What are their home ranges?
+
+
+
+- Which routes and corridors do they use?
+
+
+
+- How far do they roam daily, weekly and seasonally?
+
+
+
+- Do they move between forests and agricultural lands?
+
+
+
+- Where do they go during wet and dry seasons?
+
+
+
+- Do individual elephants and herds follow different roaming patterns?
+
+
+
+- How do human settlements, roads and fences influence their roaming routes?
+
 ## Data
 
 ```{r}
