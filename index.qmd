@@ -115,6 +115,11 @@ library(ggspatial)
 library(gganimate)
 ```
 
+## 
+
+
+![](conflicts.png){.absolute width="100%" height="100%" style="object-fit: cover; top: 0; left: 0; z-index: -1;"}
+
 ## Data
 
 ```{r}
