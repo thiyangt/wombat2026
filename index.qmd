@@ -2,7 +2,7 @@
 pagetitle: "The Future of Animals is in Our Hands"
 format:
   revealjs:
-    css: style.css
+    css: styles.css
     width: 1050
     height: 750
     margin: 0
@@ -81,26 +81,29 @@ editor: source
 :::
 :::
 
-## Sri Lanka
+##
 
-::: {.columns .balanced}
+::: {.columns}
 
 ::: {.column width="55%"}
-- Total area:	about 65,610 km²
 
+### Sri Lanka
+
+- Total area: about 65,610 km²
 - Human population: about 21.78 million
-
-- Elephant population: 6000-7000
+- Elephant population: 6,000–7,000
 
 :::
 
-::: {.column height= "100%"}
-```{r}
-#| out.height: "100%"
-knitr::include_graphics("elephants.png")
-```
+::: {.column width="45%"}
+
+![](elephants.png){width="100%"}
+
 :::
+
 :::
+
+
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}

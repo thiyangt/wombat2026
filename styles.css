@@ -4,3 +4,20 @@
   object-fit: full;
   display: block;
 }
+
+.reveal .columns {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.reveal .column {
+  flex: 1;
+  min-width: 0;
+}
+
+.reveal .column img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
