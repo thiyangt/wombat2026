@@ -9,7 +9,7 @@
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.37">
 
-  <title>Untitled</title>
+  <title>The Future of Animals is in Our Hands</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -32,6 +32,7 @@
     }
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="style.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -123,22 +124,109 @@
       margin-right: 0; 
     }
   </style>
+  <style>
+  /* ---------- Title slide: green panel (90%) + thin picture (10%) ---------- */
+  .reveal .slides section.title-split { padding: 0 !important; }
+  .title-split .split { display: flex; width: 1050px; height: 700px; }
+
+  .title-split .left-title {
+    flex: 0 0 50%;
+    box-sizing: border-box;
+    padding: 40px 70px;
+    background-color: #2e7d32;      /* change the green here */
+    color: #ffffff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .title-split .left-title .main-title {
+    font-size: 34px;                /* title size */
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 28px 0;
+  }
+  .title-split .left-title .author {
+    font-size: 22px;                /* name / university size */
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .title-split .right-pic {
+    flex: 0 0 50%;
+    height: 700px;
+    overflow: hidden;
+  }
+  .title-split .right-pic p,
+  .title-split .right-pic figure { margin: 0; height: 100%; }
+  .title-split .right-pic img {
+    width: 100%;
+    height: 700px;
+    max-height: none;
+    object-fit: cover;
+    margin: 0;
+    display: block;
+  }
+
+  /* ---------- Regular slides ---------- */
+  .reveal .slides section:not(.title-split) {
+    padding: 40px 60px !important;
+    box-sizing: border-box;
+  }
+  .reveal .balanced { display: flex; align-items: center; gap: 30px; }
+  .reveal .balanced ul { font-size: 0.85em; line-height: 1.4; }
+  .reveal .balanced li { margin-bottom: 0.6em; }
+  .reveal .side-pic {
+    width: 100%; max-height: 480px; object-fit: cover; border-radius: 8px;
+  }
+  </style>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Untitled</h1>
 
-<div class="quarto-title-authors">
+<section id="section" class="slide level2 title-split">
+<h2></h2>
+<div class="split">
+<div class="left-title">
+<p class="main-title">
+The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildlife Conservation
+</p>
+<p class="author">
+<b>Thiyanga S. Talagala</b><br>University of Sri Jayewardenepura <br>Sri Lanka
+</p>
 </div>
-
+<div class="right-pic">
+<p><img data-src="images.jpeg"></p>
+</div>
+</div>
+</section>
+<section id="sri-lanka" class="slide level2">
+<h2>Sri Lanka</h2>
+<div class="columns balanced">
+<div class="column" style="width:55%;">
+<ul>
+<li><p>Total area: about 65,610 km²</p></li>
+<li><p>Human population: about 21.78 million</p></li>
+<li><p>Elephant population: 6000-7000</p></li>
+</ul>
+</div><div class="column" height="100%">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="elephants.png" style="height:100.0%" width="512"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
 </section>
-<section id="section" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -184,30 +272,46 @@
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2">
+<section id="track-validate" class="slide level2">
+<h2>track validate</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  check                status n_issues description                              
+  &lt;chr&gt;                &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;                                    
+1 identifiers          PASS          0 Missing tracking identifiers.            
+2 timestamps           PASS          0 Missing or invalid timestamps.           
+3 duplicate_timestamps PASS          0 Repeated timestamps within tracking grou…
+4 chronological_order  PASS          0 Observations not arranged chronologicall…
+5 spatial_geometry     PASS          0 Invalid or missing spatial geometries.   
+6 coordinate_ranges    PASS          0 Coordinates outside valid longitude/lati…</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="1440" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="1440" class="r-stretch"></section>
 <section id="wet-period-january-2-december-12" class="slide level2">
 <h2>Wet Period (January 2, December 12)</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section id="wet-period" class="slide level2">
 <h2>Wet Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section id="wet-period-1" class="slide level2">
 <h2>Wet Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section id="dry-period" class="slide level2">
 <h2>Dry Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section id="dry-period-1" class="slide level2">
 <h2>Dry Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <div class="cell">
@@ -231,9 +335,146 @@
 </div>
 </div>
 </section>
-<section id="link" class="slide level2">
-<h2>Link</h2>
-<p>https://nationalzoo.gov.lk/pinnawala-elephant-orphanage/</p>
+<section id="section-3" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<section id="track-activity" class="slide level2">
+<h2>Track activity</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 7
+   elephant period              n_observations total_distance_m mean_speed_m_s
+   &lt;chr&gt;    &lt;dttm&gt;                       &lt;int&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+ 1 f1       2025-01-01 00:00:00            744          158269.         0.0592
+ 2 f1       2025-02-01 00:00:00            672          152767.         0.0631
+ 3 f1       2025-03-01 00:00:00            744          153244.         0.0572
+ 4 f1       2025-04-01 00:00:00            720          163679.         0.0631
+ 5 f1       2025-05-01 00:00:00            744          165008.         0.0616
+ 6 f1       2025-06-01 00:00:00            720          163383.         0.0630
+ 7 f1       2025-07-01 00:00:00            744          167695.         0.0626
+ 8 f1       2025-08-01 00:00:00            744          175410.         0.0655
+ 9 f1       2025-09-01 00:00:00            720          170094.         0.0656
+10 f1       2025-10-01 00:00:00            744          160825.         0.0600
+# ℹ 14 more rows
+# ℹ 2 more variables: max_speed_m_s &lt;dbl&gt;, active_observations &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A trackable: 2 x 1 [-InfD]
+#&gt; # Key:       elephant [2]
+# A tibble: 2 × 2
+  elephant area_km2
+  &lt;chr&gt;       &lt;dbl&gt;
+1 f1           39.7
+2 m1           71.5</code></pre>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
+<section id="group-by-month" class="slide level2">
+<h2>group by month</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 24 features and 2 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 80.7958 ymin: 6.4912 xmax: 80.87945 ymax: 6.583519
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A trackable: 24 x 2 [-InfD]
+#&gt; # Key:       elephant [2]
+# A tibble: 24 × 2
+   elephant month
+   &lt;chr&gt;    &lt;dbl&gt;
+ 1 f1           1
+ 2 f1           2
+ 3 f1           3
+ 4 f1           4
+ 5 f1           5
+ 6 f1           6
+ 7 f1           7
+ 8 f1           8
+ 9 f1           9
+10 f1          10
+# ℹ 14 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 24 features and 2 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 80.7958 ymin: 6.4912 xmax: 80.87945 ymax: 6.583519
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A trackable: 24 x 2 [-InfD]
+#&gt; # Key:       elephant [2]
+# A tibble: 24 × 2
+   elephant month
+   &lt;chr&gt;    &lt;fct&gt;
+ 1 f1       Jan  
+ 2 f1       Feb  
+ 3 f1       Mar  
+ 4 f1       Apr  
+ 5 f1       May  
+ 6 f1       Jun  
+ 7 f1       Jul  
+ 8 f1       Aug  
+ 9 f1       Sep  
+10 f1       Oct  
+# ℹ 14 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 56 × 6
+   elephant start_time          end_time            duration n_observations
+   &lt;chr&gt;    &lt;dttm&gt;              &lt;dttm&gt;                 &lt;dbl&gt;          &lt;int&gt;
+ 1 f1       2025-02-14 21:00:00 2025-02-15 03:00:00    21600              7
+ 2 f1       2025-03-17 22:00:00 2025-03-18 03:00:00    18000              6
+ 3 f1       2025-03-26 22:00:00 2025-03-27 03:00:00    18000              6
+ 4 f1       2025-06-08 21:00:00 2025-06-09 03:00:00    21600              7
+ 5 m1       2025-01-18 22:00:00 2025-01-19 03:00:00    18000              6
+ 6 m1       2025-01-20 22:00:00 2025-01-21 03:00:00    18000              6
+ 7 m1       2025-02-03 22:00:00 2025-02-04 03:00:00    18000              6
+ 8 m1       2025-02-12 12:00:00 2025-02-12 14:00:00     7200              3
+ 9 m1       2025-02-26 22:00:00 2025-02-27 03:00:00    18000              6
+10 m1       2025-03-17 21:00:00 2025-03-18 03:00:00    21600              7
+# ℹ 46 more rows
+# ℹ 1 more variable: displacement &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
 
 </section>
     </div>
@@ -292,7 +533,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -419,10 +660,10 @@
         // specified using percentage units.
         width: 1050,
 
-        height: 700,
+        height: 750,
 
         // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+        margin: 0,
 
         math: {
           mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',

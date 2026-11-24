@@ -1,8 +1,107 @@
 ---
-title: "Untitled"
-format: revealjs
+pagetitle: "The Future of Animals is in Our Hands"
+format:
+  revealjs:
+    css: style.css
+    width: 1050
+    height: 750
+    margin: 0
+    slide-number: true
+    include-in-header:
+      text: |
+        <style>
+        /* ---------- Title slide: green panel (90%) + thin picture (10%) ---------- */
+        .reveal .slides section.title-split { padding: 0 !important; }
+        .title-split .split { display: flex; width: 1050px; height: 700px; }
+
+        .title-split .left-title {
+          flex: 0 0 50%;
+          box-sizing: border-box;
+          padding: 40px 70px;
+          background-color: #2e7d32;      /* change the green here */
+          color: #ffffff;
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .title-split .left-title .main-title {
+          font-size: 34px;                /* title size */
+          font-weight: 700;
+          line-height: 1.25;
+          margin: 0 0 28px 0;
+        }
+        .title-split .left-title .author {
+          font-size: 22px;                /* name / university size */
+          line-height: 1.4;
+          margin: 0;
+        }
+
+        .title-split .right-pic {
+          flex: 0 0 50%;
+          height: 700px;
+          overflow: hidden;
+        }
+        .title-split .right-pic p,
+        .title-split .right-pic figure { margin: 0; height: 100%; }
+        .title-split .right-pic img {
+          width: 100%;
+          height: 700px;
+          max-height: none;
+          object-fit: cover;
+          margin: 0;
+          display: block;
+        }
+
+        /* ---------- Regular slides ---------- */
+        .reveal .slides section:not(.title-split) {
+          padding: 40px 60px !important;
+          box-sizing: border-box;
+        }
+        .reveal .balanced { display: flex; align-items: center; gap: 30px; }
+        .reveal .balanced ul { font-size: 0.85em; line-height: 1.4; }
+        .reveal .balanced li { margin-bottom: 0.6em; }
+        .reveal .side-pic {
+          width: 100%; max-height: 480px; object-fit: cover; border-radius: 8px;
+        }
+        </style>
 editor: source
 ---
+
+## {.title-split}
+
+::: {.split}
+::: {.left-title}
+<p class="main-title">The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildlife Conservation</p>
+<p class="author"><b>Thiyanga S. Talagala</b><br>University of Sri Jayewardenepura <br>Sri Lanka</p>
+:::
+
+::: {.right-pic}
+![](images.jpeg)
+:::
+:::
+
+## Sri Lanka
+
+::: {.columns .balanced}
+
+::: {.column width="55%"}
+- Total area:	about 65,610 km²
+
+- Human population: about 21.78 million
+
+- Elephant population: 6000-7000
+
+:::
+
+::: {.column height= "100%"}
+```{r}
+#| out.height: "100%"
+knitr::include_graphics("elephants.png")
+```
+:::
+:::
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -47,6 +146,13 @@ trk_ele <- elephants |>
   crs = 4326)
 trk_ele
 ```
+
+## track validate
+
+```{r}
+track_validate(trk_ele)
+```
+
 
 ##
 
@@ -422,12 +528,7 @@ movmat <- movement_metrics(
 movmat |> select(1, 3,  18:24)
 ```
 
-##
 
-```{r}
-ggplot(movmat, aes(x=step_km)) + geom_histogram() + 
-  facet_wrap(night~elephants)
-```
 ##
 
 ```{r}
@@ -439,16 +540,7 @@ ggplot(movmat, aes(x = step_km)) +
   theme_bw()
 ```
 
-##
 
-```{r}
-ggplot(movmat, aes(x = step_km)) +
-  geom_histogram(bins = 30, na.rm = TRUE) +
-  scale_x_log10() +
-  facet_grid( elephant~night, scales = "free_y") +
-  labs(x = "Hourly step length (km, log scale)", y = "Count") +
-  theme_bw()
-```
 
 ##
 
@@ -462,8 +554,197 @@ ggplot(movmat, aes(x = step_km)) +
   theme_bw()
 ```
 
+## Track activity
+
+```{r}
+activity <- track_activity(trk_ele, by = "month") 
+activity
+```
+
+
+## 
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+activity %>%
+  ggplot(aes(
+    x = period,
+    y = total_distance_m,
+    colour = elephant,
+    group = elephant
+  )) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2.5) +
+  scale_x_datetime(
+    date_labels = "%b",
+    date_breaks = "1 month"
+  ) +
+  scale_y_continuous(
+    labels = scales::label_comma()
+  ) +
+  labs(
+    title = "Monthly Variation in Elephant Movement Distance",
+    x = "Month",
+    y = "Total distance travelled (m)",
+    colour = "Elephant"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+
+## 
+
+```{r}
+library(sf)
+library(dplyr)
+
+hulls <- track_hull(trk_ele, method = "convex")
+
+hull_area <- hulls %>%
+  mutate(
+    area_km2 = as.numeric(st_area(geometry)) / 1e6
+  ) %>%
+  st_drop_geometry()
+
+hull_area
+```
+
+## 
+
+```{r}
+library(ggplot2)
+
+ggplot() +
+  geom_sf(
+    data = hulls,
+    aes(fill = elephant),
+    alpha = 0.3,
+    colour = "black"
+  ) +
+  geom_sf(
+    data = trk_ele,
+    aes(colour = elephant),
+    size = 0.3,
+    alpha = 0.5
+  ) +
+  labs(
+    title = "Elephant Home Range: Convex Hull",
+    fill = "Elephant",
+    colour = "Elephant"
+  ) +
+  theme_minimal()
+```
+
+## group by month
+
+```{r}
+track_hull(
+  trk_ele,
+  method = "convex",
+  by = c("elephant", "month")
+)
+```
+
 ##
 
-## Link
+```{r}
+library(ggplot2)
+library(sf)
 
-https://nationalzoo.gov.lk/pinnawala-elephant-orphanage/
+hulls_monthly <- track_hull(
+  trk_ele,
+  method = "convex",
+  by = c("elephant", "month")
+)
+
+hulls_monthly <- hulls_monthly |>
+  mutate(
+    month = factor(month, levels = 1:12, labels = month.abb)
+  )
+hulls_monthly
+```
+
+##
+
+```{r}
+ggplot(hulls_monthly) +
+  geom_sf(
+    aes(fill = elephant),
+    alpha = 0.35,
+    colour = "black",
+    linewidth = 0.3
+  ) +
+  facet_wrap(~ month, ncol = 6) +
+  scale_fill_manual(
+    values = c("f1" = "#E76F51", "m1" = "#2878B5"),
+    labels = c("f1" = "Female", "m1" = "Male")
+  ) +
+  labs(
+    title = "Monthly Elephant Movement Extent",
+    subtitle = "Monthly Minimum Convex Polygons (MCP)",
+    fill = "Sex"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    strip.text = element_text(face = "bold"),
+    panel.grid = element_line(colour = "grey90")
+  )
+```
+
+## 
+
+```{r}
+track_stop(trk_ele)
+```
+
+## 
+
+```{r, eval=FALSE}
+
+# Use existing elephant movement data
+elephant_tracks <- trk_ele
+
+# Detect stopping periods using default settings
+stops <- track_stop(elephant_tracks)
+
+# Display detected stopping periods
+print(stops)
+
+# Detect stopping periods lasting at least 2 hours
+stops_2h <- track_stop(
+  elephant_tracks,
+  speed_threshold = 0.2,
+  min_duration = 7200,
+  radius = 50
+)
+
+# Detect stopping periods using stricter criteria
+stops_restricted <- track_stop(
+  elephant_tracks,
+  speed_threshold = 0.1,
+  min_duration = 3600,
+  radius = 30
+)
+
+# Number of stopping periods per elephant
+stops |>
+  dplyr::count(elephant, name = "n_stops")
+
+# Summarise stopping duration
+stops |>
+  dplyr::group_by(elephant) |>
+  dplyr::summarise(
+    n_stops = dplyr::n(),
+    mean_duration_hours = mean(duration) / 3600,
+    total_stopping_hours = sum(duration) / 3600,
+    .groups = "drop"
+  )
+
+```
