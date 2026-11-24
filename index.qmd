@@ -1,7 +1,7 @@
 ---
 title: "Untitled"
 format: revealjs
-editor: visual
+editor: source
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -9,36 +9,94 @@ library(tidyverse)
 library(tsibble)
 library(trackable)
 library(here)
+library(ggspatial)
+library(gganimate)
 ```
 
 ## Data
 
 ```{r}
 male <- read_csv(here("data/elephant_fixes_2025male.csv"))
-head(male)
+male_tracks <- male |>
+  mutate(elephant = recode(elephant, "E01" = "m1"))
+female <- read_csv(here("data/elephant_fixes_2025female.csv"))
+female_tracks <- female |>
+  mutate(elephant = recode(elephant, "E01" = "f1"))
+elephants <- bind_rows(
+  male_tracks,
+  female_tracks
+)
 ```
 
-##
+## 
 
 ```{r}
-male |>
+elephants |>
   select(elephant, datetime, lon, lat)
 ```
 
 ## `trackable`
 
 ```{r}
-trk_male <- male |>
+trk_ele <- elephants |>
   trackable(
  time = datetime,
   x = lon,
   y = lat,
  key = c("elephant"),
   crs = 4326)
-trk_male
+trk_ele
 ```
 
-## 
+##
+
+```{r}
+#| warnings: false
+#| messages: false
+library(ggplot2)
+library(ggspatial)
+library(sf)
+library(maptiles)
+
+pts <- st_as_sf(
+  trk_ele,
+  coords = c("lon", "lat"),
+  crs = 4326
+)
+
+
+# Download OSM tiles
+osm <- get_tiles(
+  pts,
+  provider = "OpenStreetMap",
+  zoom = 13
+)
+
+# Plot elephant movement
+ggplot() +
+  layer_spatial(osm) +
+  geom_path(
+    data = trk_ele |> arrange(elephant, datetime),
+    aes(x = lon, y = lat, colour = elephant),
+    linewidth = 1,
+    alpha=0.5
+  ) +
+  geom_point(
+    data = trk_ele,
+    aes(x = lon, y = lat, colour = elephant),
+    size = 1.5,
+    alpha=0.5
+  ) +
+  facet_wrap(~elephant) +
+  labs(
+    title = "Elephant Movement Patterns",
+    x = "Longitude",
+    y = "Latitude",
+    colour = "Elephant"
+  ) +
+  theme_minimal()
+
+```
 
 ## Link
 
