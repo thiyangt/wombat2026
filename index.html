@@ -135,26 +135,73 @@
 </div>
 
 </section>
-<section id="quarto" class="slide level2">
-<h2>Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a>.</p>
-</section>
-<section id="bullets" class="slide level2">
-<h2>Bullets</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
-<ul>
-<li>Content authored with markdown</li>
-<li>Output from executable code</li>
-</ul>
-</section>
-<section id="code" class="slide level2">
-<h2>Code</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="data" class="slide level2">
+<h2>Data</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code># A tibble: 6 × 16
+  elephant fix_id datetime            date       month season period   night
+  &lt;chr&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;
+1 E01           1 2025-01-01 00:00:00 2025-01-01     1 Wet    Night    TRUE 
+2 E01           2 2025-01-01 01:00:00 2025-01-01     1 Wet    Night    TRUE 
+3 E01           3 2025-01-01 02:00:00 2025-01-01     1 Wet    Night    TRUE 
+4 E01           4 2025-01-01 03:00:00 2025-01-01     1 Wet    Night    TRUE 
+5 E01           5 2025-01-01 04:00:00 2025-01-01     1 Wet    Pre-dawn TRUE 
+6 E01           6 2025-01-01 05:00:00 2025-01-01     1 Wet    Pre-dawn TRUE 
+# ℹ 8 more variables: behaviour &lt;chr&gt;, habitat &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;,
+#   x_km &lt;dbl&gt;, y_km &lt;dbl&gt;, step_km &lt;dbl&gt;, speed_kmh &lt;dbl&gt;</code></pre>
 </div>
 </div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8,760 × 4
+   elephant datetime              lon   lat
+   &lt;chr&gt;    &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
+ 1 E01      2025-01-01 00:00:00  80.8  6.51
+ 2 E01      2025-01-01 01:00:00  80.8  6.51
+ 3 E01      2025-01-01 02:00:00  80.8  6.51
+ 4 E01      2025-01-01 03:00:00  80.8  6.50
+ 5 E01      2025-01-01 04:00:00  80.8  6.51
+ 6 E01      2025-01-01 05:00:00  80.8  6.51
+ 7 E01      2025-01-01 06:00:00  80.8  6.53
+ 8 E01      2025-01-01 07:00:00  80.8  6.54
+ 9 E01      2025-01-01 08:00:00  80.8  6.54
+10 E01      2025-01-01 09:00:00  80.8  6.54
+# ℹ 8,750 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="trackable" class="slide level2">
+<h2><code>trackable</code></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A trackable: 8760 x 16 [1Y]
+#&gt; # Key:       elephant [1]
+# A tibble: 8,760 × 16
+   elephant fix_id datetime            date       month season period   night
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;
+ 1 E01           1 2025-01-01 00:00:00 2025-01-01     1 Wet    Night    TRUE 
+ 2 E01           2 2025-01-01 01:00:00 2025-01-01     1 Wet    Night    TRUE 
+ 3 E01           3 2025-01-01 02:00:00 2025-01-01     1 Wet    Night    TRUE 
+ 4 E01           4 2025-01-01 03:00:00 2025-01-01     1 Wet    Night    TRUE 
+ 5 E01           5 2025-01-01 04:00:00 2025-01-01     1 Wet    Pre-dawn TRUE 
+ 6 E01           6 2025-01-01 05:00:00 2025-01-01     1 Wet    Pre-dawn TRUE 
+ 7 E01           7 2025-01-01 06:00:00 2025-01-01     1 Wet    Pre-dawn FALSE
+ 8 E01           8 2025-01-01 07:00:00 2025-01-01     1 Wet    Morning  FALSE
+ 9 E01           9 2025-01-01 08:00:00 2025-01-01     1 Wet    Morning  FALSE
+10 E01          10 2025-01-01 09:00:00 2025-01-01     1 Wet    Morning  FALSE
+# ℹ 8,750 more rows
+# ℹ 8 more variables: behaviour &lt;chr&gt;, habitat &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;,
+#   x_km &lt;dbl&gt;, y_km &lt;dbl&gt;, step_km &lt;dbl&gt;, speed_kmh &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="link" class="slide level2">
+<h2>Link</h2>
+<p>https://nationalzoo.gov.lk/pinnawala-elephant-orphanage/</p>
 
 </section>
     </div>

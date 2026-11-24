@@ -4,21 +4,42 @@ format: revealjs
 editor: visual
 ---
 
-## Quarto
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tsibble)
+library(trackable)
+library(here)
+```
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
-- Content authored with markdown
-- Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Data
 
 ```{r}
-1 + 1
+male <- read_csv(here("data/elephant_fixes_2025male.csv"))
+head(male)
 ```
+
+##
+
+```{r}
+male |>
+  select(elephant, datetime, lon, lat)
+```
+
+## `trackable`
+
+```{r}
+trk_male <- male |>
+  trackable(
+ time = datetime,
+  x = lon,
+  y = lat,
+ key = c("elephant"),
+  crs = 4326)
+trk_male
+```
+
+## 
+
+## Link
+
+https://nationalzoo.gov.lk/pinnawala-elephant-orphanage/
