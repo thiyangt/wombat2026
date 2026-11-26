@@ -32,7 +32,6 @@
     }
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
-  <link rel="stylesheet" href="styles.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -125,60 +124,103 @@
     }
   </style>
   <style>
-  /* ---------- Title slide: green panel (90%) + thin picture (10%) ---------- */
-  .reveal .slides section.title-split { padding: 0 !important; }
-  .title-split .split { display: flex; width: 1050px; height: 700px; }
+  /* Title slide */
+  .reveal .slides section.title-split {
+    padding: 0 !important;
+    height: 100%;
+  }
+
+  .title-split .split {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
 
   .title-split .left-title {
-    flex: 0 0 50%;
+    flex: 1;
     box-sizing: border-box;
-    padding: 40px 70px;
-    background-color: #2e7d32;      /* change the green here */
-    color: #ffffff;
+    padding: 50px;
+    background-color: #2e7d32;
+    color: white;
     text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  .title-split .left-title .main-title {
-    font-size: 34px;                /* title size */
+
+  .title-split .main-title {
+    font-size: 34px;
     font-weight: 700;
     line-height: 1.25;
-    margin: 0 0 28px 0;
+    margin-bottom: 30px;
   }
-  .title-split .left-title .author {
-    font-size: 22px;                /* name / university size */
-    line-height: 1.4;
-    margin: 0;
+
+  .title-split .author {
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  .title-split .subtitle {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-top: 25px;
   }
 
   .title-split .right-pic {
-    flex: 0 0 50%;
-    height: 700px;
+    flex: 1;
     overflow: hidden;
   }
+
   .title-split .right-pic p,
-  .title-split .right-pic figure { margin: 0; height: 100%; }
+  .title-split .right-pic figure {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .title-split .right-pic img {
     width: 100%;
-    height: 700px;
+    height: 100%;
     max-height: none;
     object-fit: cover;
     margin: 0;
     display: block;
   }
 
-  /* ---------- Regular slides ---------- */
+  /* Regular slides */
   .reveal .slides section:not(.title-split) {
-    padding: 40px 60px !important;
     box-sizing: border-box;
+    padding: 35px 50px !important;
+    height: 100%;
   }
-  .reveal .balanced { display: flex; align-items: center; gap: 30px; }
-  .reveal .balanced ul { font-size: 0.85em; line-height: 1.4; }
-  .reveal .balanced li { margin-bottom: 0.6em; }
+
+  /* Balanced columns */
+  .reveal .balanced {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
+
+  .reveal .balanced > div {
+    min-width: 0;
+  }
+
+  .reveal .balanced ul {
+    font-size: 0.85em;
+    line-height: 1.4;
+  }
+
+  .reveal .balanced li {
+    margin-bottom: 0.6em;
+  }
+
   .reveal .side-pic {
-    width: 100%; max-height: 480px; object-fit: cover; border-radius: 8px;
+    width: 100%;
+    max-height: 450px;
+    object-fit: contain;
+    border-radius: 8px;
   }
+
   </style>
 </head>
 <body class="quarto-light">
@@ -195,6 +237,9 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 </p>
 <p class="author">
 <b>Thiyanga S. Talagala</b><br>University of Sri Jayewardenepura <br>Sri Lanka
+</p>
+<p class="subtitle">
+<b>WOMBAT 2026</b><br>Melbourne, Australia
 </p>
 </div>
 <div class="right-pic">
@@ -216,9 +261,10 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 <p><img data-src="elephants.png" style="width:100.0%"></p>
 </div></div>
 </section>
-<section id="section-2" class="slide level2">
-<h2></h2>
-<p><img data-src="conflicts.png" class="absolute" style="object-fit: cover; top: 0; left: 0; z-index: -1;width: 100%; height: 100%; "></p>
+<section>
+<section id="section-2" class="title-slide slide level1 center" data-background-image="conflicts.png" data-background-size="contain">
+<h1></h1>
+
 </section>
 <section id="understanding-elephants" class="slide level2">
 <h2>Understanding Elephants</h2>
@@ -232,28 +278,362 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 <li><p>Do individual elephants and herds follow different roaming patterns?</p></li>
 <li><p>How do human settlements, roads and fences influence their roaming routes?</p></li>
 </ul>
+</section></section>
+<section id="can-we-know-where-an-elephant-is-right-now-even-when-it-is-deep-inside-a-forest" class="title-slide slide level1 center">
+<h1>Can we know where an elephant is right now, even when it is deep inside a forest?</h1>
+
+</section>
+
+<section id="section-3" class="title-slide slide level1 center" data-background-image="elephantwithbelt.png" data-background-size="contain">
+<h1></h1>
+
+</section>
+
+<section id="section-4" class="title-slide slide level1 center" data-background-image="GPS.png" data-background-size="contain">
+<h1></h1>
+
+</section>
+
+<section>
+<section id="section-5" class="title-slide slide level1 center" data-background-image="belt.png" data-background-size="contain">
+<h1></h1>
+
+</section>
+<section id="why-cant-we-publish-the-actual-gps-coordinates" class="slide level2">
+<h2>Why can’t we publish the actual GPS coordinates?</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ol type="1">
+<li><p>Elephant safety: Exact locations could be misused by poachers.</p></li>
+<li><p>Sensitive habitats: Locations of important habitats, water sources, resting areas and migration corridors could be exploited.</p></li>
+</ol>
+</div><div class="column" style="width:45%;">
+<p><img data-src="habitats.jpeg" style="width:100.0%"></p>
+</div></div>
+</section></section>
+<section>
+<section id="pinnawala-elephant-orphanage" class="title-slide slide level1 center">
+<h1>Pinnawala Elephant Orphanage</h1>
+
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
-</section>
-<section id="section-3" class="slide level2">
-<h2></h2>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 17,520 × 4
-   elephant datetime              lon   lat
-   &lt;chr&gt;    &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
- 1 m1       2025-01-01 00:00:00  80.8  6.51
- 2 m1       2025-01-01 01:00:00  80.8  6.51
- 3 m1       2025-01-01 02:00:00  80.8  6.51
- 4 m1       2025-01-01 03:00:00  80.8  6.50
- 5 m1       2025-01-01 04:00:00  80.8  6.51
- 6 m1       2025-01-01 05:00:00  80.8  6.51
- 7 m1       2025-01-01 06:00:00  80.8  6.53
- 8 m1       2025-01-01 07:00:00  80.8  6.54
- 9 m1       2025-01-01 08:00:00  80.8  6.54
-10 m1       2025-01-01 09:00:00  80.8  6.54
-# ℹ 17,510 more rows</code></pre>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">elephant</th>
+<th style="text-align: left;">datetime</th>
+<th style="text-align: right;">lon</th>
+<th style="text-align: right;">lat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 00:00:00</td>
+<td style="text-align: right;">80.82811</td>
+<td style="text-align: right;">6.509978</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 01:00:00</td>
+<td style="text-align: right;">80.82487</td>
+<td style="text-align: right;">6.508076</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 02:00:00</td>
+<td style="text-align: right;">80.82340</td>
+<td style="text-align: right;">6.506930</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 03:00:00</td>
+<td style="text-align: right;">80.82685</td>
+<td style="text-align: right;">6.503443</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 04:00:00</td>
+<td style="text-align: right;">80.82998</td>
+<td style="text-align: right;">6.509813</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">m1</td>
+<td style="text-align: left;">2025-01-01 05:00:00</td>
+<td style="text-align: right;">80.83424</td>
+<td style="text-align: right;">6.514909</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="other-variables" class="slide level2">
+<h2>Other variables</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dimension</th>
+<th style="text-align: left;">Categories</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Season</td>
+<td style="text-align: left;">Wet, Dry</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time of day</td>
+<td style="text-align: left;">Night, Pre-dawn, Morning, Midday, Afternoon, Evening</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Behaviour</td>
+<td style="text-align: left;">Sleeping, Foraging, Travelling, Resting, Bathing</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Habitat</td>
+<td style="text-align: left;">Grassland, Scrub, Riverine corridor, Dense forest, Cropland edge</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<div style="font-size: 0.75em;">
+<table style="width:100%; border-collapse:collapse;">
+<thead>
+<tr style="background-color:#081d58; color:white;">
+<th style="width:20%; padding:10px; text-align:left;">
+Behaviour
+</th>
+<th style="padding:10px; text-align:left;">
+GPS movement characteristics and simulation rules
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:10px; vertical-align:top;">
+<strong>Sleeping</strong>
+</td>
+<td style="padding:10px;">
+<ul>
+<li>
+Very low or zero movement
+</li>
+<li>
+Long-duration stationary bouts
+</li>
+<li>
+Mean bout duration: <strong>180 minutes</strong>
+</li>
+<li>
+More frequent during the night
+</li>
+</ul>
+</td>
+</tr>
+<tr style="background:#edf2f7;">
+<td style="padding:10px; vertical-align:top;">
+<strong>Foraging</strong>
+</td>
+<td style="padding:10px;">
+<ul>
+<li>
+Relatively slow movement
+</li>
+<li>
+Short distances between consecutive GPS fixes
+</li>
+<li>
+Frequent changes in direction
+</li>
+<li>
+Localised movements around feeding locations
+</li>
+<li>
+Speed factor: <strong>0.4</strong>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="padding:10px; vertical-align:top;">
+<strong>Travelling</strong>
+</td>
+<td style="padding:10px;">
+<ul>
+<li>
+Relatively high movement speed
+</li>
+<li>
+More directional movement
+</li>
+<li>
+Longer distances between GPS fixes
+</li>
+<li>
+Movement towards a selected target location
+</li>
+</ul>
+</td>
+</tr>
+<tr style="background:#edf2f7;">
+<td style="padding:10px; vertical-align:top;">
+<strong>Resting</strong>
+</td>
+<td style="padding:10px;">
+<ul>
+<li>
+Almost zero movement
+</li>
+<li>
+Stationary GPS locations with minor positional variation
+</li>
+<li>
+Mean bout duration: <strong>60 minutes</strong>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="padding:10px; vertical-align:top;">
+<strong>Bathing</strong>
+</td>
+<td style="padding:10px;">
+<ul>
+<li>
+Movement towards the nearest riverine corridor
+</li>
+<li>
+Almost stationary once at the river
+</li>
+<li>
+Movement may occur while approaching the water
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="font-size:0.55em; color:#777; margin-top:8px;">
+<p>Note: These are behavioural rules used in the simulation. GPS movement patterns alone cannot confirm actual elephant behaviour.</p>
+</div>
+</section>
+<section id="motivation-for-the-work" class="slide level2">
+<h2>Motivation for the work</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: center;">tibble</th>
+<th style="text-align: center;">tsibble</th>
+<th style="text-align: center;">sf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tabular data</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Create data manually</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Animal identification</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Store timestamps</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time index</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Key-based observations</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time-aware operations</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Geographic coordinates</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spatial geometry</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coordinate reference system (CRS)</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spatial operations</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Represent movement trajectories</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Calculate movement distances</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spatial joins</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Temporal aggregation</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -298,30 +678,30 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="1440" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="1440" class="r-stretch"></section>
 <section id="wet-period-january-2-december-12" class="slide level2">
 <h2>Wet Period (January 2, December 12)</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section id="wet-period" class="slide level2">
 <h2>Wet Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section id="wet-period-1" class="slide level2">
 <h2>Wet Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section id="dry-period" class="slide level2">
 <h2>Dry Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section id="dry-period-1" class="slide level2">
 <h2>Dry Period</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <div class="cell">
@@ -345,14 +725,14 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 </div>
 </div>
 </section>
-<section id="section-5" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
-<section id="section-6" class="slide level2">
+<section id="section-8" class="slide level2">
 <h2></h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
 <section id="track-activity" class="slide level2">
 <h2>Track activity</h2>
 <div class="cell">
@@ -375,11 +755,11 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 </div>
 </div>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-10" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
-<section id="section-8" class="slide level2">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<section id="section-11" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -393,10 +773,10 @@ The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildli
 </div>
 </div>
 </section>
-<section id="section-9" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
 <section id="group-by-month" class="slide level2">
 <h2>group by month</h2>
 <div class="cell">
@@ -427,7 +807,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -457,11 +837,11 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
-<section id="section-12" class="slide level2">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
+<section id="section-15" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -483,10 +863,10 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-16" class="slide level2">
 <h2></h2>
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -668,9 +1048,9 @@ Geodetic CRS:  WGS 84</code></pre>
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1280,
 
-        height: 750,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0,

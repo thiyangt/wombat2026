@@ -2,68 +2,112 @@
 pagetitle: "The Future of Animals is in Our Hands"
 format:
   revealjs:
-    css: styles.css
-    width: 1050
-    height: 750
-    margin: 0
+    theme: [default]
+    width: 1280
+    height: 720
+    margin: 0.00
+    center: false
     slide-number: true
     include-in-header:
       text: |
         <style>
-        /* ---------- Title slide: green panel (90%) + thin picture (10%) ---------- */
-        .reveal .slides section.title-split { padding: 0 !important; }
-        .title-split .split { display: flex; width: 1050px; height: 700px; }
+        /* Title slide */
+        .reveal .slides section.title-split {
+          padding: 0 !important;
+          height: 100%;
+        }
+
+        .title-split .split {
+          display: flex;
+          width: 100%;
+          height: 100%;
+        }
 
         .title-split .left-title {
-          flex: 0 0 50%;
+          flex: 1;
           box-sizing: border-box;
-          padding: 40px 70px;
-          background-color: #2e7d32;      /* change the green here */
-          color: #ffffff;
+          padding: 50px;
+          background-color: #2e7d32;
+          color: white;
           text-align: left;
           display: flex;
           flex-direction: column;
           justify-content: center;
         }
-        .title-split .left-title .main-title {
-          font-size: 34px;                /* title size */
+
+        .title-split .main-title {
+          font-size: 34px;
           font-weight: 700;
           line-height: 1.25;
-          margin: 0 0 28px 0;
+          margin-bottom: 30px;
         }
-        .title-split .left-title .author {
-          font-size: 22px;                /* name / university size */
-          line-height: 1.4;
-          margin: 0;
+
+        .title-split .author {
+          font-size: 21px;
+          line-height: 1.5;
+        }
+
+        .title-split .subtitle {
+          font-size: 19px;
+          line-height: 1.5;
+          margin-top: 25px;
         }
 
         .title-split .right-pic {
-          flex: 0 0 50%;
-          height: 700px;
+          flex: 1;
           overflow: hidden;
         }
+
         .title-split .right-pic p,
-        .title-split .right-pic figure { margin: 0; height: 100%; }
+        .title-split .right-pic figure {
+          margin: 0;
+          width: 100%;
+          height: 100%;
+        }
+
         .title-split .right-pic img {
           width: 100%;
-          height: 700px;
+          height: 100%;
           max-height: none;
           object-fit: cover;
           margin: 0;
           display: block;
         }
 
-        /* ---------- Regular slides ---------- */
+        /* Regular slides */
         .reveal .slides section:not(.title-split) {
-          padding: 40px 60px !important;
           box-sizing: border-box;
+          padding: 35px 50px !important;
+          height: 100%;
         }
-        .reveal .balanced { display: flex; align-items: center; gap: 30px; }
-        .reveal .balanced ul { font-size: 0.85em; line-height: 1.4; }
-        .reveal .balanced li { margin-bottom: 0.6em; }
+
+        /* Balanced columns */
+        .reveal .balanced {
+          display: flex;
+          align-items: center;
+          gap: 35px;
+        }
+
+        .reveal .balanced > div {
+          min-width: 0;
+        }
+
+        .reveal .balanced ul {
+          font-size: 0.85em;
+          line-height: 1.4;
+        }
+
+        .reveal .balanced li {
+          margin-bottom: 0.6em;
+        }
+
         .reveal .side-pic {
-          width: 100%; max-height: 480px; object-fit: cover; border-radius: 8px;
+          width: 100%;
+          max-height: 450px;
+          object-fit: contain;
+          border-radius: 8px;
         }
+
         </style>
 editor: source
 ---
@@ -74,6 +118,7 @@ editor: source
 ::: {.left-title}
 <p class="main-title">The Future of Animals is in Our Hands:<br> My Role as a Data Scientist in Wildlife Conservation</p>
 <p class="author"><b>Thiyanga S. Talagala</b><br>University of Sri Jayewardenepura <br>Sri Lanka</p>
+<p class="subtitle"><b>WOMBAT 2026</b><br>Melbourne, Australia</p>
 :::
 
 ::: {.right-pic}
@@ -115,10 +160,9 @@ library(ggspatial)
 library(gganimate)
 ```
 
-## 
+# {background-image="conflicts.png" background-size="contain"}
 
 
-![](conflicts.png){.absolute width="100%" height="100%" style="object-fit: cover; top: 0; left: 0; z-index: -1;"}
 
 
 
@@ -154,7 +198,39 @@ library(gganimate)
 
 - How do human settlements, roads and fences influence their roaming routes?
 
-## Data
+# Can we know where an elephant is right now, even when it is deep inside a forest?
+
+
+# {background-image="elephantwithbelt.png" background-size="contain"}
+
+# {background-image="GPS.png" background-size="contain"}
+
+# {background-image="belt.png" background-size="contain"}
+
+
+## Why can't we publish the actual GPS coordinates?
+
+::: {.columns}
+
+::: {.column width="55%"}
+
+
+1. Elephant safety: Exact locations could be misused by poachers.
+
+2. Sensitive habitats: Locations of important habitats, water sources, resting areas and migration corridors could be exploited.
+
+:::
+
+::: {.column width="45%"}
+
+![](habitats.jpeg){width="100%"}
+
+:::
+:::
+
+# Pinnawala Elephant Orphanage
+
+
 
 ```{r}
 male <- read_csv(here("data/elephant_fixes_2025male.csv"))
@@ -169,11 +245,152 @@ elephants <- bind_rows(
 )
 ```
 
-## 
+## Data
 
 ```{r}
-elephants |>
-  select(elephant, datetime, lon, lat)
+dt <- elephants |> select(elephant, datetime, lon, lat) |> head(6)
+knitr::kable(dt)
+```
+
+## Other variables
+
+| Dimension | Categories |
+|:---|:---|
+| Season | Wet, Dry |
+| Time of day | Night, Pre-dawn, Morning, Midday, Afternoon, Evening |
+| Behaviour | Sleeping, Foraging, Travelling, Resting, Bathing |
+| Habitat | Grassland, Scrub, Riverine corridor, Dense forest, Cropland edge |
+
+##
+
+<div style="font-size: 0.75em;">
+
+<table style="width:100%; border-collapse:collapse;">
+
+<thead>
+<tr style="background-color:#081d58; color:white;">
+<th style="width:20%; padding:10px; text-align:left;">Behaviour</th>
+<th style="padding:10px; text-align:left;">GPS movement characteristics and simulation rules</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td style="padding:10px; vertical-align:top;"><strong>Sleeping</strong></td>
+<td style="padding:10px;">
+<ul>
+<li>Very low or zero movement</li>
+<li>Long-duration stationary bouts</li>
+<li>Mean bout duration: <strong>180 minutes</strong></li>
+<li>More frequent during the night</li>
+</ul>
+</td>
+</tr>
+
+<tr style="background:#edf2f7;">
+<td style="padding:10px; vertical-align:top;"><strong>Foraging</strong></td>
+<td style="padding:10px;">
+<ul>
+<li>Relatively slow movement</li>
+<li>Short distances between consecutive GPS fixes</li>
+<li>Frequent changes in direction</li>
+<li>Localised movements around feeding locations</li>
+<li>Speed factor: <strong>0.4</strong></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td style="padding:10px; vertical-align:top;"><strong>Travelling</strong></td>
+<td style="padding:10px;">
+<ul>
+<li>Relatively high movement speed</li>
+<li>More directional movement</li>
+<li>Longer distances between GPS fixes</li>
+<li>Movement towards a selected target location</li>
+</ul>
+</td>
+</tr>
+
+<tr style="background:#edf2f7;">
+<td style="padding:10px; vertical-align:top;"><strong>Resting</strong></td>
+<td style="padding:10px;">
+<ul>
+<li>Almost zero movement</li>
+<li>Stationary GPS locations with minor positional variation</li>
+<li>Mean bout duration: <strong>60 minutes</strong></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td style="padding:10px; vertical-align:top;"><strong>Bathing</strong></td>
+<td style="padding:10px;">
+<ul>
+<li>Movement towards the nearest riverine corridor</li>
+<li>Almost stationary once at the river</li>
+<li>Movement may occur while approaching the water</li>
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div style="font-size:0.55em; color:#777; margin-top:8px;">
+Note: These are behavioural rules used in the simulation. GPS movement patterns alone cannot confirm actual elephant behaviour.
+</div>
+
+## Motivation for the work
+
+```{r}
+library(tibble)
+library(tsibble)
+library(sf)
+library(knitr)
+
+df <- tibble(
+  Feature = c(
+    "Tabular data",
+    "Create data manually",
+    "Animal identification",
+    "Store timestamps",
+    "Time index",
+    "Key-based observations",
+    "Time-aware operations",
+    "Geographic coordinates",
+    "Spatial geometry",
+    "Coordinate reference system (CRS)",
+    "Spatial operations",
+    "Represent movement trajectories",
+    "Calculate movement distances",
+    "Spatial joins",
+    "Temporal aggregation"
+  ),
+  tibble = c(
+    "Yes", "Yes", "Yes", "Yes", "No",
+    "No", "No", "Yes", "No", "No",
+    "No", "No", "No", "No", "Yes"
+  ),
+  tsibble = c(
+    "Yes", "Yes", "Yes", "Yes", "Yes",
+    "Yes", "Yes", "Yes", "No", "No",
+    "No", "No", "No", "No", "Yes"
+  ),
+  sf = c(
+    "Yes", "Yes", "Yes", "Yes", "No",
+    "No", "No", "Yes", "Yes", "Yes",
+    "Yes", "Yes", "Yes", "Yes", "No"
+  )
+)
+
+knitr::kable(
+  df,
+  align = "lccc"
+)
 ```
 
 ## `trackable`
