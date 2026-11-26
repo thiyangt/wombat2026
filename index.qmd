@@ -261,159 +261,130 @@ knitr::kable(dt)
 | Behaviour | Sleeping, Foraging, Travelling, Resting, Bathing |
 | Habitat | Grassland, Scrub, Riverine corridor, Dense forest, Cropland edge |
 
-##
-
-<div style="font-size: 0.75em;">
-
-<table style="width:100%; border-collapse:collapse;">
-
-<thead>
-<tr style="background-color:#081d58; color:white;">
-<th style="width:20%; padding:10px; text-align:left;">Behaviour</th>
-<th style="padding:10px; text-align:left;">GPS movement characteristics and simulation rules</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td style="padding:10px; vertical-align:top;"><strong>Sleeping</strong></td>
-<td style="padding:10px;">
-<ul>
-<li>Very low or zero movement</li>
-<li>Long-duration stationary bouts</li>
-<li>Mean bout duration: <strong>180 minutes</strong></li>
-<li>More frequent during the night</li>
-</ul>
-</td>
-</tr>
-
-<tr style="background:#edf2f7;">
-<td style="padding:10px; vertical-align:top;"><strong>Foraging</strong></td>
-<td style="padding:10px;">
-<ul>
-<li>Relatively slow movement</li>
-<li>Short distances between consecutive GPS fixes</li>
-<li>Frequent changes in direction</li>
-<li>Localised movements around feeding locations</li>
-<li>Speed factor: <strong>0.4</strong></li>
-</ul>
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px; vertical-align:top;"><strong>Travelling</strong></td>
-<td style="padding:10px;">
-<ul>
-<li>Relatively high movement speed</li>
-<li>More directional movement</li>
-<li>Longer distances between GPS fixes</li>
-<li>Movement towards a selected target location</li>
-</ul>
-</td>
-</tr>
-
-<tr style="background:#edf2f7;">
-<td style="padding:10px; vertical-align:top;"><strong>Resting</strong></td>
-<td style="padding:10px;">
-<ul>
-<li>Almost zero movement</li>
-<li>Stationary GPS locations with minor positional variation</li>
-<li>Mean bout duration: <strong>60 minutes</strong></li>
-</ul>
-</td>
-</tr>
-
-<tr>
-<td style="padding:10px; vertical-align:top;"><strong>Bathing</strong></td>
-<td style="padding:10px;">
-<ul>
-<li>Movement towards the nearest riverine corridor</li>
-<li>Almost stationary once at the river</li>
-<li>Movement may occur while approaching the water</li>
-</ul>
-</td>
-</tr>
-
-</tbody>
-</table>
-
-</div>
-
-<div style="font-size:0.55em; color:#777; margin-top:8px;">
-Note: These are behavioural rules used in the simulation. GPS movement patterns alone cannot confirm actual elephant behaviour.
-</div>
-
-## Motivation for the work
+## Sleeping, foraging, travelling, resting, and bathing
 
 ```{r}
-library(tibble)
-library(tsibble)
-library(sf)
 library(knitr)
+library(kableExtra)
+library(dplyr)
+library(tibble)
 
-df <- tibble(
-  Feature = c(
-    "Tabular data",
-    "Create data manually",
-    "Animal identification",
-    "Store timestamps",
-    "Time index",
-    "Key-based observations",
-    "Time-aware operations",
-    "Geographic coordinates",
-    "Spatial geometry",
-    "Coordinate reference system (CRS)",
-    "Spatial operations",
-    "Represent movement trajectories",
-    "Calculate movement distances",
-    "Spatial joins",
-    "Temporal aggregation"
-  ),
-  tibble = c(
-    "Yes", "Yes", "Yes", "Yes", "No",
-    "No", "No", "Yes", "No", "No",
-    "No", "No", "No", "No", "Yes"
-  ),
-  tsibble = c(
-    "Yes", "Yes", "Yes", "Yes", "Yes",
-    "Yes", "Yes", "Yes", "No", "No",
-    "No", "No", "No", "No", "Yes"
-  ),
-  sf = c(
-    "Yes", "Yes", "Yes", "Yes", "No",
-    "No", "No", "Yes", "Yes", "Yes",
-    "Yes", "Yes", "Yes", "Yes", "No"
-  )
+library(tibble)
+library(knitr)
+library(kableExtra)
+
+behaviour_df <- tribble(
+  ~Behaviour, ~GPS_movement_characteristics,
+  "Sleeping",
+  "Very low or zero movement; long stationary bouts; mean duration: 180 minutes; more frequent at night.",
+  "Foraging",
+  "Slow movement; short distances between GPS fixes; frequent direction changes; localised feeding movements; speed factor: 0.4.",
+  "Travelling",
+  "High movement speed; directional movement; longer distances between GPS fixes; movement towards a selected target.",
+  "Resting",
+  "Almost zero movement; stationary GPS locations with minor positional variation; mean duration: 60 minutes.",
+  "Bathing",
+  "Movement towards the nearest riverine corridor; almost stationary at the river; movement may occur while approaching water."
 )
 
-knitr::kable(
-  df,
-  align = "lccc"
-)
+kable(
+  behaviour_df,
+  col.names = c("Behaviour", "GPS movement characteristics and simulation rules"),
+  align = c("l", "l"),
+  format = "html",
+  table.attr = 'style="width:100%; font-size:0.75em;"'
+) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    full_width = TRUE,
+    position = "left"
+  ) %>%
+  column_spec(1, bold = TRUE, width = "17%") %>%
+  column_spec(2, width = "83%")
+```
+
+
+#  {background-image="ds1.png" background-size="contain"}
+
+# {background-image="ds2.png" background-size="contain"}
+
+## Elephant Rani at Pinnewela Elephant Orphanage
+
+```{r}
+library(dplyr)
+library(lubridate)
+
+rani <- pinnawala |>
+  mutate(
+    datetime = ymd_hm(paste("2026-10-12", time)),
+    id = "Rani",
+    location = "Pinnawala"
+  ) %>%
+  select(id, datetime, longitude, latitude, location)
+rani
 ```
 
 ## `trackable`
 
-```{r}
+```{r, echo=TRUE}
+trkrani <- rani |> trackable(
+ time = datetime,
+ x = longitude, y = latitude,
+ key = c("id"),
+ crs = 4326)
+trkrani
+```
+
+## 
+
+```{r, warning=FALSE, message=FALSE, echo=TRUE}
+#| out.width: "100%"
+#| out.height: "100%"
+ggplot() +
+  annotation_map_tile(type = "osm", zoom = 16) +
+  geom_sf(data = trkrani, col="red", size = 3) +
+  geom_sf( data = sf::st_cast(sf::st_combine(trkrani),
+      "LINESTRING"),colour = "black",
+    linewidth = 0.7
+  ) + theme_minimal()
+```
+
+
+
+## `trackable`
+
+```{r, echo=TRUE}
 trk_ele <- elephants |>
   trackable(
  time = datetime,
-  x = lon,
-  y = lat,
- key = c("elephant"),
-  crs = 4326)
+ x = lon, y = lat,
+ key = c("elephant"), crs = 4326)
 trk_ele
 ```
 
+## Tracking data quality
+
+`track_gaps()` — identify missing or unusually long intervals between observations.
+
+`track_regularise()` — create a regular time index for each animal.
+
+`track_interpolate()` — interpolate missing positions when scientifically appropriate.
+
+`track_duplicates()` — detect duplicated timestamps or locations.
+
+`track_outliers()` — flag implausible GPS fixes or speeds.
+
+`track_validate()` — check identifiers, timestamps, coordinates, and ordering.
+These are especially important before calculating movement metrics or fitting behavioural models.
+
 ## track validate
 
-```{r}
+```{r, echo=TRUE}
 track_validate(trk_ele)
 ```
 
 
-##
+## Udawalawa: Elephant Movement
 
 ```{r}
 #| warnings: false
@@ -463,7 +434,6 @@ ggplot() +
   ) +
   facet_wrap(~elephant) +
   labs(
-    title = "Elephant Movement Patterns",
     x = "Longitude",
     y = "Latitude",
     colour = "Elephant"
@@ -522,8 +492,6 @@ ggplot() +
   facet_wrap(~elephant) +
 
   labs(
-    title = "Elephant Movement and Behaviour",
-    subtitle = "Highlighted observations: December 12 and January 2",
     x = "Longitude",
     y = "Latitude",
     colour = "Observation date",
@@ -532,7 +500,7 @@ ggplot() +
   theme_minimal()
 ```
 
-## Wet Period
+## Wet Period (January 2, December 12)
 
 ```{r}
 library(dplyr)
@@ -559,14 +527,6 @@ ggplot() +
   layer_spatial(osm) +
 
   # All movement tracks in the background
-  geom_path(
-    data = trk_ele |> arrange(elephant, datetime),
-    aes(lon, lat, group = elephant),
-    colour = "grey50",
-    linewidth = 0.7,
-    alpha = 0.4
-  ) +
-
   # Highlight selected dates
   geom_point(
     data = highlight_dates,
@@ -582,8 +542,6 @@ ggplot() +
   facet_wrap(~elephant) +
 
   labs(
-    title = "Elephant Movement and Behaviour",
-    subtitle = "Highlighted observations: December 12 and January 2",
     x = "Longitude",
     y = "Latitude",
     colour = "Observation date",
@@ -591,67 +549,6 @@ ggplot() +
   ) +
   theme_minimal()
 ```
-
-## Wet Period
-
-```{r}
-library(dplyr)
-library(ggplot2)
-library(ggspatial)
-library(sf)
-library(maptiles)
-
-# Select observations on the two dates
-highlight_dates <- trk_ele |>
-  mutate(date = as.Date(datetime)) |>
-  filter(
-    format(date, "%m-%d") %in% c("12-12", "01-02")
-  ) |>
-  mutate(
-    highlight_date = case_when(
-      format(date, "%m-%d") == "12-12" ~ "December 12",
-      format(date, "%m-%d") == "01-02" ~ "January 2"
-    )
-  )
-
-# Plot
-ggplot() +
-  layer_spatial(osm) +
-
-  # All movement tracks in the background
-  geom_path(
-    data = trk_ele |> arrange(elephant, datetime),
-    aes(lon, lat, group = elephant),
-    colour = NA,
-    linewidth = 0.7,
-    alpha = 0.4
-  ) +
-
-  # Highlight selected dates
-  geom_point(
-    data = highlight_dates,
-    aes(
-      lon, lat,
-      colour = highlight_date,
-     # shape = behaviour
-    ),
-    size = 3,
-    alpha = 0.9
-  ) +
-
-  facet_wrap(~elephant) +
-
-  labs(
-    title = "Elephant Movement and Behaviour",
-    subtitle = "Highlighted observations: December 12 and January 2",
-    x = "Longitude",
-    y = "Latitude",
-    colour = "Observation date",
-    shape = "Behaviour"
-  ) +
-  theme_minimal()
-```
-
 
 
 ## Dry Period
@@ -704,8 +601,6 @@ ggplot() +
   facet_wrap(~elephant) +
 
   labs(
-    title = "Elephant Movement and Behaviour",
-    subtitle = "Highlighted observations: April 12 and September 10",
     x = "Longitude",
     y = "Latitude",
     colour = "Observation date",
@@ -764,8 +659,6 @@ ggplot() +
   facet_wrap(~elephant) +
 
   labs(
-    title = "Elephant Movement and Behaviour",
-    subtitle = "Highlighted observations: April 12 and September 10",
     x = "Longitude",
     y = "Latitude",
     colour = "Observation date",
@@ -775,47 +668,99 @@ ggplot() +
 ```
 
 
-## Summary
+## Movement metrics: `movement_metrics`
 
 ```{r}
+movement_variables <- tibble::tribble(
+  ~Variable, ~Description, ~Unit_or_Type,
+  "x_km", "Projected X-coordinate representing the animal's east–west location.", "Kilometres",
+  "y_km", "Projected Y-coordinate representing the animal's north–south location.", "Kilometres",
+  "step_km", "Distance travelled between consecutive GPS locations.", "Kilometres",
+  "speed_kmh", "Movement speed between consecutive GPS observations.", "Kilometres/hour",
+  "geometry", "Spatial geometry representing the animal's geographic location.", "sf geometry",
+  "elapsed_time_s", "Time elapsed between consecutive GPS observations.", "Seconds",
+  "step_distance_m", "Geographic distance travelled between consecutive GPS locations.", "Metres",
+  "speed_m_s", "Movement speed between consecutive GPS observations.", "Metres/second",
+  "bearing_deg", "Compass direction of movement from the previous location to the current location.", "Degrees (0–360)",
+  "turn_angle_deg", "Change in direction between consecutive movement steps.", "Degrees (-180 to 180)",
+  "cumulative_distance_m", "Total distance travelled since the first recorded observation.", "Metres",
+  "displacement_m", "Straight-line distance from the first recorded location to the current location.", "Metres"
+)
+
+knitr::kable(
+  movement_variables,
+  col.names = c("Variable", "Description", "Unit / Type"),
+  caption = "Spatial and movement variables in a trackable object"
+)
+```
+
+
+##
+
+```{r, echo=TRUE}
 movmat <- movement_metrics(
     trk_ele,
     id = "elephant",
     time = "datetime",
     lon = "lon",
     lat = "lat")
-movmat |> select(1, 3,  18:24)
+movmat |> select(1, 3,  18:24) 
 ```
-
 
 ##
 
 ```{r}
-ggplot(movmat, aes(x = step_km)) +
-  geom_histogram(bins = 30, na.rm = TRUE) +
-  scale_x_log10() +
-  facet_grid( elephant~season, scales = "free_y") +
-  labs(x = "Hourly step length (km, log scale)", y = "Count") +
-  theme_bw()
+movmat |> select(1, 3,  18:24) |> knitr::kable()
 ```
-
-
 
 ##
 
-
 ```{r}
-ggplot(movmat, aes(x = step_km)) +
-  geom_histogram(bins = 30, na.rm = TRUE) +
-  scale_x_log10() +
-  facet_grid( elephant~behaviour, scales = "free_y") +
-  labs(x = "Hourly step length (km, log scale)", y = "Count") +
+ggplot(movmat, aes(x = step_km, fill = behaviour)) +
+  geom_histogram(
+    bins = 30,
+    na.rm = TRUE,
+    colour = "white",
+    alpha = 0.7,
+    position = "identity"
+  ) +
+  #scale_x_log10() +
+  labs(
+    title = "Distribution of Step Lengths by Behaviour",
+    x = "Step length (km)",
+    y = "Frequency",
+    fill = "Behaviour"
+  ) +
   theme_bw()
 ```
+
+##
+
+```{r}
+ggplot(movmat, aes(x = step_km, fill = behaviour)) +
+  geom_histogram(
+    bins = 30,
+    na.rm = TRUE,
+    colour = "white",
+    alpha = 0.7,
+    position = "identity"
+  ) +
+  scale_x_log10() +
+  labs(
+    title = "Distribution of Step Lengths by Behaviour",
+    x = "Step length (km, log scale)",
+    y = "Frequency",
+    fill = "Behaviour"
+  ) +
+  theme_bw()
+```
+
 
 ## Track activity
 
-```{r}
+Calculate movement summaries for specified temporal intervals.
+
+```{r, echo=TRUE}
 activity <- track_activity(trk_ele, by = "month") 
 activity
 ```
@@ -856,21 +801,31 @@ activity %>%
   )
 ```
 
+# Home range 
+
+`track_hull()` — calculate a convex hull around observed locations.
+
+`track_home_range()` — estimate a home range using methods such as kernel density estimation.
+
+`track_utilization_distribution()` — estimate the relative intensity of space use.
+
+`track_overlap()` — quantify spatial overlap between animals or groups.
+
+`track_residence_time()` — estimate how long an animal stays within a defined area.
+
+`track_crossings()` — identify river, road, or habitat-boundary crossings.
 
 ## 
 
-```{r}
+```{r, echo=TRUE}
 library(sf)
 library(dplyr)
-
 hulls <- track_hull(trk_ele, method = "convex")
-
 hull_area <- hulls %>%
   mutate(
     area_km2 = as.numeric(st_area(geometry)) / 1e6
   ) %>%
   st_drop_geometry()
-
 hull_area
 ```
 
@@ -878,7 +833,6 @@ hull_area
 
 ```{r}
 library(ggplot2)
-
 ggplot() +
   geom_sf(
     data = hulls,
@@ -893,14 +847,14 @@ ggplot() +
     alpha = 0.5
   ) +
   labs(
-    title = "Elephant Home Range: Convex Hull",
+    title = "Overall Home Range (Convex Hull)",
     fill = "Elephant",
     colour = "Elephant"
   ) +
   theme_minimal()
 ```
 
-## group by month
+## Monthly home range (monthly convex hull)
 
 ```{r}
 track_hull(
@@ -945,8 +899,7 @@ ggplot(hulls_monthly) +
     labels = c("f1" = "Female", "m1" = "Male")
   ) +
   labs(
-    title = "Monthly Elephant Movement Extent",
-    subtitle = "Monthly Minimum Convex Polygons (MCP)",
+    title = "Monthly Home Range (Monthly Convex Hull)",
     fill = "Sex"
   ) +
   theme_minimal() +
@@ -957,53 +910,60 @@ ggplot(hulls_monthly) +
   )
 ```
 
-## 
+## Behaviour and activity patterns
 
-```{r}
-track_stop(trk_ele)
-```
+`track_stop()` — detect periods of low movement.
 
-## 
+`track_bursts()` — identify rapid movement episodes.
 
-```{r, eval=FALSE}
+`track_activity()` — summarise movement by hour, day, or season.
 
-# Use existing elephant movement data
-elephant_tracks <- trk_ele
+`track_day_night()` — compare daytime and nighttime movement.
 
-# Detect stopping periods using default settings
-stops <- track_stop(elephant_tracks)
+`track_behaviour()` — classify movement into candidate behavioural states.
 
-# Display detected stopping periods
-print(stops)
+`track_seasonality()` — examine seasonal differences in movement.
 
-# Detect stopping periods lasting at least 2 hours
+## Detect stopping periods lasting at least 2 hours
+
+```{r, echo=TRUE}
 stops_2h <- track_stop(
-  elephant_tracks,
+  trk_ele,
   speed_threshold = 0.2,
   min_duration = 7200,
   radius = 50
 )
-
-# Detect stopping periods using stricter criteria
-stops_restricted <- track_stop(
-  elephant_tracks,
-  speed_threshold = 0.1,
-  min_duration = 3600,
-  radius = 30
-)
-
-# Number of stopping periods per elephant
-stops |>
-  dplyr::count(elephant, name = "n_stops")
-
-# Summarise stopping duration
-stops |>
-  dplyr::group_by(elephant) |>
-  dplyr::summarise(
-    n_stops = dplyr::n(),
-    mean_duration_hours = mean(duration) / 3600,
-    total_stopping_hours = sum(duration) / 3600,
-    .groups = "drop"
-  )
-
+stops_2h
 ```
+
+##
+
+```{r, eval=FALSE, echo=TRUE}
+stops_2h <- track_stop(
+  trk_ele,
+  speed_threshold = 0.2,
+  min_duration = 7200,
+  radius = 50
+)
+stops_2h
+```
+
+`speed_threshold` = 0.2	The elephant's movement speed must be at or below 0.2 (in the speed unit used by the function, e.g. m/s).
+
+`min_duration` = 7200	A stopping period must last at least 7,200 seconds (2 hours).
+
+`radius` = 50	GPS locations during the stopping period must remain within a 50 m radius.
+
+```{r, eval=FALSE, echo=TRUE}
+stops_2h <- track_stop(
+  trk_ele,
+  speed_threshold = 0.2,
+  min_duration = 7200,
+  radius = 50
+)
+stops_2h
+```
+
+## 
+
+
